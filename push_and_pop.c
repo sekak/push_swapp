@@ -13,12 +13,13 @@ typedef struct s_vars {
 	t_stack b;
 } t_vars;
 
-
+// initialize top struct
 void stack_init(t_stack *stack)
 {
 	stack->top = -1;
 }
 
+// function push 
 void push(t_stack *stack, int element)
 {
 	if(stack->top == STACK_SIZE -1)
@@ -30,19 +31,21 @@ void push(t_stack *stack, int element)
 	stack->num[stack->top] = element;
 }
 
+// function pop 
 int  pop(t_stack *stack)
 {
 	if(stack->top == -1)
 	{
 		printf("Error: stack underflow");
-		exit(1);
+		// exit(1);
+		push(stack, 3);
 	}
 	int element = stack->num[stack->top];
 	stack->top--;
 	return element;
 }
 
-
+//swap each sa && sb
 void swap(t_stack *stack)
 {
 	int	store;
@@ -63,32 +66,49 @@ void sb(t_vars *vars)
 	swap(&vars->b);
 }
 
+// do it sa && sb
 void ss(t_vars *vars)
 {
 	swap(&vars->a);
 	swap(&vars->b);
 }
 
-void push_from_to(t_stack *from, t_stack *to)
-{
-	int	store;
+// push_from_to each pa and pb ; pb->pa or pa->pb
+// void push_from_to(t_stack *from, t_stack *to)
+// {
+// 	int	store;
 
-	store = pop(from); 
-	push(to, store);
+// 	store = pop(from); 
+// 	push(to, store);
+// 	printf("to->num%d\n",pop(to));
+// 	// return(to->num[0]);
+// }
+
+
+void pb(t_stack *a,t_stack *b)
+{
+  	int	store; 
+	 
+	store = pop(a); 
+	push(b, store);
+	printf("%d\n",b->num[b->top]);
 }
 
-
-void pa(t_vars *vars)
+void pa(t_stack *a,t_stack *b)
 {
-	push_from_to(&vars->a, &vars->b);
+  	int	store; 
+	 
+	store = pop(b); 
+	push(a, store);
+	printf("%d\n",a->num[a->top]);
 }
 
-void pb(t_vars *vars)
-{
-	push_from_to(&vars->b ,&vars->a);
-}
+// void  pb(t_vars *vars)
+// {
+// 	 push_from_to(&vars->a ,&vars->b) ;
+// }
 
-
+//rotation a or b
 void rotation(t_stack *stack)
 {
 	int j = stack->top;
@@ -113,21 +133,24 @@ void rb(t_vars *vars)
 
 int main()
 {
-	t_stack  a;
-	t_stack  b;
+	t_stack a,b;
 	t_vars  vars;
-	stack_init(&a);
+ 
+ 	stack_init(&a);
+	stack_init(&b);
 
 	push(&a, 4);//4
 	push(&a, 3);//3 
 	push(&a, 2);//2
-	push(&a, 5);//1 
-	pa(&vars);
-		 
- 	//  printf("%d\n", pop(&a));  // Output: 4
-	// printf("%d\n", pop(&a));  // Output: 3
-  	// printf("%d\n", pop(&a));  // Output: 2
-	b = vars.b;
- 	 printf("%d\n", b.num[0]);  // Output: 1
- 
+	push(&a, 1);//1 
+
+	push(&b, 7);//1 
+	push(&b, 6);//1 
+	push(&b, 5);//1 
+
+  	printf("%d %d\n", a.num[a.top],b.num[b.top]);  // Output: 1
+	pb(&a, &b);
+	 
+  	printf("%d %d\n", a.num[a.top],b.num[b.top]);  // Output: 1
+	
 }
