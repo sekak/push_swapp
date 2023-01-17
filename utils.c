@@ -159,3 +159,96 @@ void rrr(t_stack *a, t_stack *b)
 	rrb(b);
 	printf("rrr\n");
 }
+
+int check_is_all_number(char *av)
+{
+	int i;
+	i = -1;
+	
+	while (av[i])
+	{
+		if (!( av[i] >= '0' && av[i] <= '9'))
+			return (0);
+		while (av[i] == 32)
+			i++;
+		i++;
+	}
+	return (1);
+}
+
+int check_is_all_number_two(char **av)
+{
+	int i;
+	int j = 0;
+	i = 1;
+
+	while (av[i])
+	{
+		j = 0;
+		while (av[i][j])
+		{
+			// printf("av[i] : %c\n", av[i][j]);
+			if (!(av[i][j] >= '0' && av[i][j] <= '9'))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+void char_to_int_two(t_stack *a, char **av)
+{
+	int i;
+	int j = 0;
+	int number;
+	number = 0;
+	i = 1;
+	while (av[i])
+	{
+ 		j = 0;
+		while (av[i][j])
+		{
+			number = 0;
+			if (av[i][j] >= '0' && av[i][j] <= '9')
+			{
+				while (av[i][j] >= '0' && av[i][j] <= '9')
+				{
+					number = (number * 10) + av[i][j] - 48;
+					j++;
+				}
+ 				push(a, number);
+			}
+			else 
+				break;
+
+		}
+		i++;
+	}
+}
+
+void char_to_int(t_stack *a, char *av)
+{
+	int i;
+ 	int number;
+	int d = 0;
+	number = 0;
+	i = 0;
+	while (av[i])
+	{
+		while (av[i] == 32)
+			i++;
+		number = 0;
+		while (av[i] >= '0' && av[i] <= '9')
+		{
+			if (av[i] == 32)
+				break;
+			number = (number * 10) + av[i] - 48;
+			i++;
+			d = 1;
+		}
+		if(d == 1)
+			push(a, number);
+		d = 0;
+	}
+}

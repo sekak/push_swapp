@@ -15,9 +15,11 @@ typedef struct s_stack {
 	int top;
 } t_stack;
 
-typedef struct s_vars {
-	int num[STACK_SIZE];
-	int top;
+typedef struct s_vars
+{
+	int middletop;
+	int middle;
+	int middlebottom;
 } t_vars;
 
 void stack_init(t_stack *stack);
@@ -36,6 +38,10 @@ void rra(t_stack *a);
 void rrb(t_stack *b);
 void rrr(t_stack *a, t_stack *b);
 
+void char_to_int(t_stack *a, char *av);
+void char_to_int_two(t_stack *a, char **av);
+int check_is_all_number_two(char **av);
+int check_is_all_number(char *av);
 
 
 #endif
