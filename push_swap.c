@@ -327,8 +327,12 @@ void midPoint(t_stack *a, t_vars *data)
 			}
 			j++;
 		}
+		// printf("array %d\n",array[i]);
+
 		i++;
 	}
+	printf("i%d\n",i);
+
 	midpoint = i / 2;
 	data->middle = array[midpoint];
 	midpoint = midpoint / 2;
@@ -338,7 +342,46 @@ void midPoint(t_stack *a, t_vars *data)
 	midpoint = midpoint + (i / 2);
 	data->middlebottom = array[midpoint];
 }
+int  middoint(t_stack *b, t_vars *data)
+{
 
+	int i;
+	int tmp;
+	int j;
+	int array[SIZE];
+	// int midpoint = 0;
+
+	i = 0;
+	j = 0;
+	tmp = 0;
+	while (b->top >= i)
+	{
+		array[i] = b->num[i];
+		i++;
+	}
+	i = 0;
+	while (i < b->top)
+	{
+		j = 0;
+		while ((j + i) < b->top)
+		{
+			if (array[i] >= array[i + j])
+			{
+				tmp = array[i];
+				array[i] = array[j + i];
+				array[i + j] = tmp;
+			}
+			j++;
+		}
+		printf("array %d\n",array[i]);
+		i++;
+	}
+	i--;
+		// printf("array %d\n",array[i]);
+
+	// printf("b->top %d\n i%d\n",i);
+	 return(array[i]);
+}
 void function(t_stack *a, t_stack *b)
 {
 	t_vars data;
@@ -406,16 +449,14 @@ void function(t_stack *a, t_stack *b)
 				}
 			}
 		}
-		
+
 		x++;
 	}
 	x = 0;
-	while(a->top >= x)
+	while (a->top >= x)
 	{
-
-				printf("start\n");
-		  if (a->num[x] >= data.middle) // 6
-			{
+		if (a->num[x] >= data.middle) // 6
+		{
 			if (a->num[x] < data.middlebottom) // 3
 			{
 				int t = a->top / 2;
@@ -469,24 +510,77 @@ void function(t_stack *a, t_stack *b)
 				}
 			}
 		}
-		// printf("pop %d  X :%d\n",a->num[x], x);
-		// printf("top%d\n",a->num[a->top]);
+		 
 		x++;
 	}
 
- 
-	printf("\npop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
-	printf("pop b:%d\n", pop(b));
+
+
+
+	// printf("\npop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+	// printf("pop b:%d\n", pop(b));
+
+	int sorted = 0;
+	while(!sorted)
+	{
+		sorted = 1;
+		x = 0;
+		while(x <= b->top)
+		{
+		printf("bigger %d\n%d\n",middoint(b, &data), b->num[x]);
+			if(middoint(b ,&data) == b->num[x])
+			{
+				printf("start\n");
+				int t = b->top / 2;
+				if (x <  t)
+				{
+					position = x + 1;
+					while (position)
+					{
+						rrb(b);
+						position--;
+					}
+					x = -1;
+					pa(a, b);
+				}
+				else if (x >= t)
+				{
+					position = b->top - x;
+					while (position > 0)
+					{
+						rb(b);
+						position--;
+					}
+					pa(a, b);
+					x = -1;
+				}
+				sorted = 0;
+			}
+			x++;
+			
+		}
+	}
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
+	printf("pop a:%d\n", pop(a));
 }
 
 int check_iterations(t_stack *a)
